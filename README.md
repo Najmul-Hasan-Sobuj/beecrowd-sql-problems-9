@@ -1,41 +1,94 @@
+### beecrowd SQL | 2620 - Orders in First Half
 
-[![Orders in First Half](https://img.shields.io/badge/license-MIT-blue.svg)](./OrdersinFirstHalf.md)
+**Author:** Paulo R. Rodegheri, BR Brasil
 
-### beecrowd: A Comprehensive Guide
+**Time Limit:** 1 second
 
-#### **Introduction to beecrowd**
-beecrowd is a vibrant and global community of developers, fostering a culture of continuous learning and professional advancement. The platform is designed to help individuals train in algorithms and programming challenges, thereby evolving into the experts they have always dreamed of becoming.
-
-#### **Problem Repository**
-- **Extensive Collection**: Over 2,000 analytical and programming tests are available, providing a rich resource for practice and learning.
-- **Language Diversity**: Catering to a global audience, the tests are accessible in more than 20 different programming languages, ensuring inclusivity and broad appeal. Both Portuguese and English language options are available, making the platform versatile and user-friendly.
-
-#### **beecrowd Forum**
-- **Community and Support**: The forum is a dynamic space for interaction, camaraderie, and expert assistance, fostering a sense of community among users.
-- **Exchange of Knowledge**: It serves as a platform for sharing experiences and insights about various algorithms and programming languages, encouraging a culture of collective learning and knowledge sharing.
-
-#### **Joining beecrowd**
-- **For New Users**: Individuals new to the platform are encouraged to sign up and become part of one of the largest and most dynamic developer and competitive programming communities globally.
-
-#### **Competition and Ranking**
-- **Competitive Platform**: beecrowd hosts a variety of competitions, contests, and tournaments, offering a competitive environment for participants to test and compare their skills with peers.
-- **Career Enhancement**: Engaging in these competitive events provides significant opportunities for professional growth, skill enhancement, and recognition in the field.
-
-#### **beecrowd Academic**
-- **Tailored for Education**: Specifically designed for Educational Institutions, Professors, and Coaches, this module adds an academic dimension to the platform.
-- **Course Development and Monitoring**: It facilitates the creation of courses and exercise lists, along with the capability to track student progress, providing valuable real-time feedback.
-
-#### **beecrowd Contests**
-- **Regular Public Contests**: The platform is known for hosting regular public contests, adding to its dynamic and engaging nature.
-- **Personalized Contest Hosting**: Users have the opportunity to contact beecrowd for hosting their own contests. This feature allows for the creation of new problems and the training of teams in unique and private competitive environments.
+**Memory Limit:** 200 MB
 
 ---
 
-*This document provides an overview of the beecrowd platform based on the information available on their website. For more detailed information or specific inquiries, please visit the [beecrowd website](https://www.beecrowd.com.br/judge/en/problems/index/9).*
+#### Problem Description:
 
-*Respect copyrights. Issues or features*
+The company's financial audit requires a report for the first half of 2016. The task is to display the customer's name and order number for customers who placed orders in the first half of 2016.
 
-<a name="license"></a>
-# License
+#### Schema:
 
-[Orders in First Half](OrdersinFirstHalf.md)
+1. **Table: `customers`**
+
+   | Column        | Type                    |
+   | ------------- | ----------------------- |
+   | id (PK)       | numeric                 |
+   | name          | character varying (255) |
+   | street        | character varying (255) |
+   | city          | character varying (255) |
+   | state         | char (2)                |
+   | credit\_limit | numeric                 |
+
+2. **Table: `orders`**
+
+   | Column             | Type           |
+   | ------------------ | -------------- |
+   | id (PK)            | numeric        |
+   | orders\_date       | date (ISO/YMD) |
+   | id\_customers (FK) | numeric        |
+
+#### Sample Data:
+
+- **customers:**
+
+  | id | name                                    | street                                | city          | state | credit\_limit |
+  | -- | --------------------------------------- | ------------------------------------- | ------------- | ----- | ------------- |
+  | 1  | Nicolas Diogo Cardoso                   | Acesso Um                             | Porto Alegre  | RS    | 475           |
+  | 2  | Cecília Olivia Rodrigues                | Rua Sizuka Usuy                       | Cianorte      | PR    | 3170          |
+  | 3  | Augusto Fernando Carlos Eduardo Cardoso | Rua Baldomiro Koerich                 | Palhoça       | SC    | 1067          |
+  | 4  | Nicolas Diogo Cardoso                   | Acesso Um                             | Porto Alegre  | RS    | 475           |
+  | 5  | Sabrina Heloisa Gabriela Barros         | Rua Engenheiro Tito Marques Fernandes | Porto Alegre  | RS    | 4312          |
+  | 6  | Joaquim Diego Lorenzo Araújo            | Rua Vitorino                          | Novo Hamburgo | RS    | 2314          |
+
+- **orders:**
+
+  | id | orders\_date | id\_customers |
+  | -- | ------------ | ------------- |
+  | 1  | 2016-05-13   | 3             |
+  | 2  | 2016-01-12   | 2             |
+  | 3  | 2016-04-18   | 5             |
+  | 4  | 2016-09-07   | 4             |
+  | 5  | 2016-02-13   | 6             |
+  | 6  | 2016-08-05   | 3             |
+
+#### Task:
+
+Write an SQL query to find the names of customers and their order IDs for orders that were placed in the first half of 2016.
+
+#### Output Sample:
+
+| name                                    | id |
+| --------------------------------------- | -- |
+| Augusto Fernando Carlos Eduardo Cardoso | 1  |
+| Cecília Olivia Rodrigues                | 2  |
+| Sabrina Heloisa Gabriela Barros         | 3  |
+| Joaquim Diego Lorenzo Araújo            | 5  |
+
+---
+
+#### SQL Query:
+
+```sql
+SELECT customers.name, orders.id
+FROM customers
+JOIN orders ON customers.id = orders.id_customers
+WHERE orders.orders_date BETWEEN '2016-01-01' AND '2016-06-30';
+```
+
+#### Explanation of the Query:
+
+- `SELECT customers.name, orders.id`: This line specifies that we are interested in the `name` column from the `customers` table and the `id` column from the `orders` table.
+
+- `FROM customers`: The query begins by selecting data from the `customers` table.
+
+- `JOIN orders ON customers.id = orders.id_customers`: Here, we perform an inner join with the `orders` table. The join condition is that the `id` field in the `customers` table should match the `id_customers` field in the `orders` table, ensuring each order is correctly associated with its customer.
+
+- `WHERE orders.orders_date BETWEEN '2016-01-01' AND '2016-06-30'`: This condition filters the records to include only those orders that were placed between January 1, 2016, and June 30, 2016.
+
+This table represents the names of the customers who placed orders in the first half of 2016, along with the IDs of those orders.
