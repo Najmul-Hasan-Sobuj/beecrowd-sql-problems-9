@@ -1,5 +1,5 @@
 
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE.md)
+[![Orders in First Half](https://img.shields.io/badge/license-MIT-blue.svg)](./OrdersinFirstHalf.md)
 
 ### beecrowd: A Comprehensive Guide
 
@@ -38,4 +38,4 @@ beecrowd is a vibrant and global community of developers, fostering a culture of
 <a name="license"></a>
 # License
 
-[The MIT License (MIT)](LICENSE.md)
+[Orders in First Half](OrdersinFirstHalf.md)
