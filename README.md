@@ -34,3 +34,8 @@ beecrowd is a vibrant and global community of developers, fostering a culture of
 *This document provides an overview of the beecrowd platform based on the information available on their website. For more detailed information or specific inquiries, please visit the [beecrowd website](https://www.beecrowd.com.br/judge/en/problems/index/9).*
 
 *Respect copyrights. Issues or features*
+
+<a name="2620"></a>
+# 2620
+
+[The Proble 2620 (CODE)](2620.md)
