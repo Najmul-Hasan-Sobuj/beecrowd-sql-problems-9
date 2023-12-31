@@ -1,5 +1,5 @@
 
-[![BEE 2620](https://img.shields.io/badge/license-MIT-blue.svg)](./2620.md)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE.md)
 
 ### beecrowd: A Comprehensive Guide
 
@@ -35,7 +35,7 @@ beecrowd is a vibrant and global community of developers, fostering a culture of
 
 *Respect copyrights. Issues or features*
 
-<a name="2620"></a>
-# 2620
+<a name="license"></a>
+# License
 
-[The Proble 2620 (CODE)](2620.md)
+[The MIT License (MIT)](LICENSE.md)
