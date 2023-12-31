@@ -1,4 +1,4 @@
-### beecrowd SQL | 2602 - Customer Survey in Rio Grande do Sul */ dadadaw/*
+### beecrowd SQL | 2602 - Customer Survey in Rio Grande do Sul
 
 <details>
 
@@ -75,7 +75,7 @@ WHERE state = 'RS';
 This query will list the names of all customers who are registered in the state of 'Rio Grande do Sul'.
 
 </details> 
-```
+
 
 ### beecrowd SQL | 2620 - Orders in First Half
 
