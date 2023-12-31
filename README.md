@@ -96,7 +96,10 @@ This table represents the names of the customers who placed orders in the first 
 
 
 
-## Class 01 <details> <summary>Click Here</summary>
+## Class 01
+
+<details>
+<summary>Click Here</summary>
 
 ### What is javaScript
 
