@@ -1,10 +1,4 @@
-### beecrowd SQL | 2620 - Orders in First Half
-
-**Author:** Paulo R. Rodegheri, BR Brasil
-
-**Time Limit:** 1 second
-
-**Memory Limit:** 200 MB
+### beecrowd SQL | 2620 - Orders in First Half **Author:** Paulo R. Rodegheri, BR Brasil **Time Limit:** 1 second **Memory Limit:** 200 MB
 
 ---
 
