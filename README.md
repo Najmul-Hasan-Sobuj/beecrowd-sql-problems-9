@@ -75,7 +75,84 @@ WHERE state = 'RS';
 This query will list the names of all customers who are registered in the state of 'Rio Grande do Sul'.
 
 </details> 
+<!-- ```end -->
 
+### beecrowd SQL | 2603 - Customer Address for 20th Anniversary Event
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Paulo R. Rodegheri, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+The company is planning an event to celebrate its 20th anniversary in the market, with a grand celebration in Porto Alegre. All customers residing in Porto Alegre are invited. Your task is to obtain the names and addresses of customers living in 'Porto Alegre' to personally deliver the invitations.
+
+#### Schema:
+
+1. **Table: `customers`**
+
+   | Column        | Type             |
+   | ------------- | ---------------- |
+   | id (PK)       | numeric          |
+   | name          | varchar          |
+   | street        | varchar          |
+   | city          | varchar          |
+   | state         | char             |
+   | credit_limit  | number           |
+
+#### Sample Data:
+
+- **customers:**
+
+  | id | name                      | street                   | city          | state | credit_limit |
+  | -- | ------------------------- | ------------------------ | ------------- | ----- | ------------ |
+  | 1  | Pedro Augusto da Rocha    | Rua Pedro Carlos Hoffman | Porto Alegre  | RS    | 700.00       |
+  | 2  | Antonio Carlos Mamel      | Av. Pinheiros            | Belo Horizonte| MG    | 3500.50      |
+  | 3  | Luiza Augusta Mhor        | Rua Salto Grande         | Niteroi       | RJ    | 4000.00      |
+  | 4  | Jane Ester                | Av 7 de setembro         | Erechim       | RS    | 800.00       |
+  | 5  | Marcos Antônio dos Santos | Av Farrapos              | Porto Alegre  | RS    | 4250.25      |
+
+#### Task:
+
+Write an SQL query to find the names and streets of customers who live in 'Porto Alegre', to deliver the invitations personally.
+
+#### Output Sample:
+
+| name                      | street                   |
+| ------------------------- | ------------------------ |
+| Pedro Augusto da Rocha    | Rua Pedro Carlos Hoffman |
+| Marcos Antônio dos Santos | Av Farrapos              |
+
+---
+
+#### SQL Query:
+
+```sql
+SELECT name, street
+FROM customers
+WHERE city = 'Porto Alegre';
+```
+
+#### Explanation of the Query:
+
+- `SELECT name, street`: This line specifies that we are interested in the `name` and `street` columns from the `customers` table.
+
+- `FROM customers`: The query begins by selecting data from the `customers` table.
+
+- `WHERE city = 'Porto Alegre'`: This condition filters the records to include only those customers who live in Porto Alegre.
+
+This query will provide the names and addresses of customers living in Porto Alegre for the purpose of personal invitation delivery to the company's 20th-anniversary celebration.
+
+</details> 
+<!-- ```end -->
 
 ### beecrowd SQL | 2620 - Orders in First Half
 
