@@ -1,4 +1,15 @@
-### beecrowd SQL | 2620 - Orders in First Half **Author:** Paulo R. Rodegheri, BR Brasil **Time Limit:** 1 second **Memory Limit:** 200 MB
+### beecrowd SQL | 2620 - Orders in First Half
+
+<details>
+
+<summary>Click Here</summary>
+
+
+**Author:** Paulo R. Rodegheri, BR Brasil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
 
 ---
 
@@ -87,34 +98,4 @@ WHERE orders.orders_date BETWEEN '2016-01-01' AND '2016-06-30';
 
 This table represents the names of the customers who placed orders in the first half of 2016, along with the IDs of those orders.
 
-
-
-
-## Class 01
-
-<details>
-
-<summary>Click Here</summary>
-
-### What is javaScript
-
-- HTML 5
-
-- CSS 3
-
-- jQuery 
-
-- Bootstrap 5 
-
-- Github 
-
-### Dev fonts Download 
-[Dev Fonts Download Link](https://drive.google.com/file/d/1Nq_WhC34hg5xJt949gCtQGmbPGEcMxSt/view?fbclid=IwAR2ZCDy6W5AeEwmb7vR5ezHfDi3OX-RFqSJbntRJ5HoWv-WNAxkzLzEV8Bw)
-
-### Statement & rules  
-
-- In a programming language,  instructions ( lines of code  ) are called statements. 
-- put a semicolon after a complete statement 
-- also, you can avoid semicolon  
-- two or more words are joined by using concatenation ( + ) 
 </details> 
