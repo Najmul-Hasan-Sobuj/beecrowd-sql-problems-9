@@ -1685,3 +1685,536 @@ This table represents the names of the customers who placed orders in the first 
 </details> 
 <!-- ```end -->
 
+### beecrowd SQL | 2621 - Amounts Between 10 and 20
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Paulo R. Rodegheri, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+The stock keeper needs help with a report. The task is to display the name of products whose amount is between 10 and 20 and whose supplier's name starts with the letter 'P'.
+
+#### Schema:
+
+1. **Table: `providers`**
+
+   | Column | Type                  |
+   | ------ | --------------------- |
+   | id (Primary Key) | numeric           |
+   | name   | character varying (255) |
+   | street | character varying (255) |
+   | city   | character varying (255) |
+   | state  | char (2)               |
+
+2. **Table: `products`**
+
+   | Column | Type                  |
+   | ------ | --------------------- |
+   | id (Primary Key) | numeric           |
+   | name   | character varying (255) |
+   | amount | numeric               |
+   | price  | numeric               |
+   | id_providers (Foreign Key) | numeric  |
+
+#### Sample Data:
+
+- **providers:**
+
+  | id | name                | street                   | city          | state |
+  | -- | ------------------- | ------------------------ | ------------- | ----- |
+  | 1  | Ajax SA             | Rua Presidente Castelo Branco | Porto Alegre | RS    |
+  | 2  | Sansul SA           | Av Brasil                | Rio de Janeiro | RJ    |
+  | 3  | Pr Sheppard Chairs  | Rua do Moinho            | Santa Maria   | RS    |
+  | 4  | Elon Electro        | Rua Apolo                | São Paulo     | SP    |
+  | 5  | Mike Electro        | Rua Pedro da Cunha       | Curitiba      | PR    |
+
+- **products:**
+
+  | id | name             | amount | price   | id_providers |
+  | -- | ---------------- | ------ | ------- | ------------ |
+  | 1  | Blue Chair       | 30     | 300.00  | 5            |
+  | 2  | Red Chair        | 50     | 2150.00 | 2            |
+  | 3  | Disney Wardrobe  | 400    | 829.50  | 4            |
+  | 4  | Executive Chair  | 17     | 9.90    | 3            |
+  | 5  | Solar Panel      | 30     | 3000.25 | 4            |
+
+#### Task:
+
+Write an SQL query to display the name of products whose amount is between 10 and 20 and whose supplier's name starts with the letter 'P'.
+
+#### SQL Query:
+
+```sql
+SELECT products.name AS "Product Name"
+FROM products
+JOIN providers ON products.id_providers = providers.id
+WHERE products.amount BETWEEN 10 AND 20 AND providers.name LIKE 'P%';
+```
+
+#### Explanation of the Query:
+
+- `SELECT products.name AS "Product Name"`: This line selects the `name` column from the `products` table, aliased as "Product Name" for clarity.
+
+- `FROM products`: Specifies that the data is being selected from the `products` table.
+
+- `JOIN providers ON products.id_providers = providers.id`: Joins the `products` table with the `providers` table where the provider IDs match.
+
+- `WHERE products.amount BETWEEN 10 AND 20 AND providers.name LIKE 'P%'`: Filters the results to include only those products whose amount is between 10 and 20, and the name of their provider starts with the letter 'P'.
+
+This query will help identify the products that meet the specified criteria.
+
+#### Output Sample:
+
+| Product Name    |
+| --------------- |
+| Executive Chair |
+
+---
+
+</details> 
+<!-- ```end -->
+
+### beecrowd SQL | 2622 - Legal Person
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Paulo R. Rodegheri, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+The sales industry intends to run a promotion for all clients that are legal entities. The task is to display the names of the customers who are legal entities.
+
+#### Schema:
+
+1. **Table: `customers`**
+
+   | Column       | Type                    |
+   | ------------ | ----------------------- |
+   | id (Primary Key) | numeric             |
+   | name         | character varying (255) |
+   | street       | character varying (255) |
+   | city         | character varying (255) |
+   | state        | char (2)                |
+   | credit_limit | numeric                 |
+
+2. **Table: `legal_person`**
+
+   | Column          | Type         |
+   | --------------- | ------------ |
+   | id_customers (Foreign Key) | numeric  |
+   | cnpj            | char (18)    |
+   | contact         | character varying |
+
+#### Sample Data:
+
+- **customers:**
+
+  | id | name                                   | street                           | city           | state | credit_limit |
+  | -- | -------------------------------------- | -------------------------------- | -------------- | ----- | ------------ |
+  | 1  | Nicolas Diogo Cardoso                  | Acesso Um                        | Porto Alegre   | RS    | 475          |
+  | 2  | Cecília Olivia Rodrigues               | Rua Sizuka Usuy                  | Cianorte       | PR    | 3170         |
+  | 3  | Augusto Fernando Carlos Eduardo Cardoso | Rua Baldomiro Koerich            | Palhoça        | SC    | 1067         |
+  | 4  | Nicolas Diogo Cardoso                  | Acesso Um                        | Porto Alegre   | RS    | 475          |
+  | 5  | Sabrina Heloisa Gabriela Barros        | Rua Engenheiro Tito Marques Fernandes | Porto Alegre | RS    | 4312        |
+  | 6  | Joaquim Diego Lorenzo Araújo           | Rua Vitorino                     | Novo Hamburgo  | RS    | 2314         |
+
+- **legal_person:**
+
+  | id_customers | cnpj          | contact   |
+  | ------------ | ------------- | --------- |
+  | 4            | 85883842000191 | 99767-0562 |
+  | 5            | 47773848000117 | 99100-8965  |
+
+#### Task:
+
+Write an SQL query to display the names of customers who are legal entities.
+
+#### SQL Query:
+
+```sql
+SELECT customers.name AS "Customer Name"
+FROM customers
+JOIN legal_person ON customers.id = legal_person.id_customers;
+```
+
+#### Explanation of the Query:
+
+- `SELECT customers.name AS "Customer Name"`: This line selects the `name` column from the `customers` table, aliased as "Customer Name" for clarity.
+
+- `FROM customers`: Specifies that the data is being selected from the `customers` table.
+
+- `JOIN legal_person ON customers.id = legal_person.id_customers`: Joins the `customers` table with the `legal_person` table where the customer IDs match those in the `legal_person` table.
+
+This query will display the names of customers who are identified as legal entities in the database.
+
+#### Output Sample:
+
+| Customer Name                  |
+| ------------------------------ |
+| Nicolas Diogo Cardoso          |
+| Sabrina Heloisa Gabriela Barros|
+
+---
+
+</details> 
+<!-- ```end -->
+
+### beecrowd SQL | 2623 - Categories with Various Products
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Paulo R. Rodegheri, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+The sales industry requires a report to know what products are left in stock. The task is to display the product name and category name for products whose amount is greater than 100 and the category ID is 1, 2, 3, 6, or 9. The results should be shown in ascending order by category ID.
+
+#### Schema:
+
+1. **Table: `products`**
+
+   | Column | Type                  |
+   | ------ | --------------------- |
+   | id (Primary Key) | numeric           |
+   | name   | character varying (255) |
+   | amount | numeric               |
+   | price  | numeric               |
+   | id_categories (Foreign Key) | numeric  |
+
+2. **Table: `categories`**
+
+   | Column | Type                  |
+   | ------ | --------------------- |
+   | id (Primary Key) | numeric           |
+   | name   | character varying (255) |
+
+#### Sample Data:
+
+- **products:**
+
+  | id | name            | amount | price   | id_categories |
+  | -- | --------------- | ------ | ------- | ------------- |
+  | 1  | Blue Chair      | 30     | 300.00  | 9             |
+  | 2  | Red Chair       | 200    | 2150.00 | 2             |
+  | 3  | Disney Wardrobe | 400    | 829.50  | 4             |
+  | 4  | Blue Toaster    | 20     | 9.90    | 3             |
+  | 5  | Solar Panel     | 30     | 3000.25 | 4             |
+
+- **categories:**
+
+  | id | name        |
+  | -- | ----------- |
+  | 1  | Superior    |
+  | 2  | Super Luxury|
+  | 3  | Modern      |
+  | 4  | Nerd        |
+  | 5  | Infantile   |
+  | 6  | Robust      |
+  | 9  | Wood        |
+
+#### Task:
+
+Write an SQL query to display the product name and category name for products whose amount is greater than 100 and the category ID is 1, 2, 3, 6, or 9. Sort the results in ascending order by category ID.
+
+#### SQL Query:
+
+```sql
+SELECT products.name AS "Product Name", categories.name AS "Category Name"
+FROM products
+JOIN categories ON products.id_categories = categories.id
+WHERE products.amount > 100 AND products.id_categories IN (1, 2, 3, 6, 9)
+ORDER BY products.id_categories ASC;
+```
+
+#### Explanation of the Query:
+
+- `SELECT products.name AS "Product Name", categories.name AS "Category Name"`: This line selects the `name` column from both `products` and `categories` tables, aliased for clarity.
+
+- `FROM products`: Specifies that the data is being selected from the `products` table.
+
+- `JOIN categories ON products.id_categories = categories.id`: Joins the `products` table with the `categories` table where the category IDs match.
+
+- `WHERE products.amount > 100 AND products.id_categories IN (1, 2, 3, 6, 9)`: Filters the results to include only those products whose amount is greater than 100 and whose category ID is among 1, 2, 3, 6, or 9.
+
+- `ORDER BY products.id_categories ASC`: Orders the results in ascending order based on the category ID.
+
+This query will help identify the products that meet the specified criteria, sorted by category.
+
+#### Output Sample:
+
+| Product Name | Category Name  |
+| ------------ | -------------- |
+| Red Chair    | Super Luxury   |
+
+---
+
+</details> 
+<!-- ```end -->
+
+### beecrowd SQL | 2624 - Number of Cities per Customers
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Paulo R. Rodegheri, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+The company board requires a report on how many distinct cities the company has reached. The task is to display the number of distinct cities in the customers table.
+
+#### Schema:
+
+**Table: `customers`**
+
+| Column       | Type                    |
+| ------------ | ----------------------- |
+| id (Primary Key) | numeric             |
+| name         | character varying (255) |
+| street       | character varying (255) |
+| city         | character varying (255) |
+| state        | char (2)                |
+| credit_limit | numeric                 |
+
+#### Sample Data:
+
+**customers:**
+
+| id | name                                    | street                           | city           | state | credit_limit |
+| -- | --------------------------------------- | -------------------------------- | -------------- | ----- | ------------ |
+| 1  | Nicolas Diogo Cardoso                   | Acesso Um                        | Porto Alegre   | RS    | 475          |
+| 2  | Cecília Olivia Rodrigues                | Rua Sizuka Usuy                  | Cianorte       | PR    | 3170         |
+| 3  | Augusto Fernando Carlos Eduardo Cardoso | Rua Baldomiro Koerich            | Palhoça        | SC    | 1067         |
+| 4  | Nicolas Diogo Cardoso                   | Acesso Um                        | Porto Alegre   | RS    | 475          |
+| 5  | Sabrina Heloisa Gabriela Barros         | Rua Engenheiro Tito Marques Fernandes | Porto Alegre | RS    | 4312        |
+| 6  | Joaquim Diego Lorenzo Araújo            | Rua Vitorino                     | Novo Hamburgo  | RS    | 2314         |
+
+#### Task:
+
+Write an SQL query to display the number of distinct cities in the customers table.
+
+#### SQL Query:
+
+```sql
+SELECT COUNT(DISTINCT city) AS "Number of Cities"
+FROM customers;
+```
+
+#### Explanation of the Query:
+
+- `SELECT COUNT(DISTINCT city) AS "Number of Cities"`: This line selects and counts the distinct `city` values from the `customers` table. The result is aliased as "Number of Cities" for clarity.
+
+This query will provide the total count of distinct cities where the company's customers are located.
+
+#### Output Sample:
+
+| Number of Cities |
+| ---------------- |
+| 4                |
+
+---
+
+</details> 
+<!-- ```end -->
+
+### beecrowd SQL | 2625 - CPF Validation
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Marcos Lima, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+The communications managers require a report on the natural person customer data with validated CPFs. The task is to select all CPFs of customers and apply a mask to the data, formatting it as '000.000.000-00'.
+
+#### Schema:
+
+1. **Table: `customers`**
+
+   | Column       | Type                    |
+   | ------------ | ----------------------- |
+   | id (Primary Key) | numeric             |
+   | name         | character varying (255) |
+   | street       | character varying (255) |
+   | city         | character varying (255) |
+   | state        | char (2)                |
+   | credit_limit | numeric                 |
+
+2. **Table: `natural_person`**
+
+   | Column          | Type         |
+   | --------------- | ------------ |
+   | id_customers (Foreign Key) | numeric  |
+   | cpf            | char (14)    |
+
+#### Sample Data:
+
+- **customers:**
+
+  | id | name                                    | street                           | city           | state | credit_limit |
+  | -- | --------------------------------------- | -------------------------------- | -------------- | ----- | ------------ |
+  | 1  | Nicolas Diogo Cardoso                   | Acesso Um                        | Porto Alegre   | RS    | 475          |
+  | 2  | Cecília Olivia Rodrigues                | Rua Sizuka Usuy                  | Cianorte       | PR    | 3170         |
+  | ... | ...                                    | ...                              | ...            | ...   | ...          |
+
+- **natural_person:**
+
+  | id_customers | cpf        |
+  | ------------ | ---------- |
+  | 1            | 26774287840 |
+  | 2            | 97918477200  |
+
+#### Task:
+
+Write an SQL query to select all CPFs of customers and apply a mask to format them as '000.000.000-00'.
+
+#### SQL Query:
+
+```sql
+SELECT FORMAT(cpf, '###.###.###-##') AS "CPF"
+FROM natural_person;
+```
+
+#### Explanation of the Query:
+
+- `SELECT FORMAT(cpf, '###.###.###-##') AS "CPF"`: This line selects the `cpf` column from the `natural_person` table and applies a mask to format the CPF numbers in the desired format. The result is aliased as "CPF" for clarity.
+
+This query will format and display all customer CPFs according to the specified mask.
+
+#### Output Sample:
+
+| CPF             |
+| --------------- |
+| 267.742.878-40  |
+| 979.184.772-00  |
+
+---
+
+</details> 
+<!-- ```end -->
+
+Note: The SQL function used in the query (`FORMAT`) might vary depending on the SQL database system used (e.g., MySQL, PostgreSQL, etc.). The given query is a general representation, and the exact function name and syntax might need adjustments based on the specific SQL database in use.
+
+### beecrowd SQL | 2737 - Lawyers
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Marcos Lima, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+The manager of Mangojata Lawyers requires a report on their current lawyers. The report should include the name of the lawyer with the most clients, the one with the fewest clients, and the average number of clients considering all lawyers. The average must be presented as an integer.
+
+#### Schema:
+
+**Table: `lawyers`**
+
+| Column          | Type     |
+| --------------- | -------- |
+| register (Primary Key) | integer |
+| name            | varchar  |
+| customers_number| integer  |
+
+#### Sample Data:
+
+**lawyers:**
+
+| register | name              | customers_number |
+| -------- | ----------------- | ---------------- |
+| 1648     | Marty M. Harrison | 5                |
+| 2427     | Jonathan J. Blevins | 15             |
+| 3365     | Chelsey D. Sanders | 20               |
+| 4153     | Dorothy W. Ford   | 16               |
+| 5525     | Penny J. Cormier  | 6                |
+
+#### Task:
+
+Write an SQL query to show the name of the lawyer with the most clients, the one with the fewest clients, and the average number of clients considering all lawyers.
+
+#### SQL Query:
+
+```sql
+SELECT name, customers_number
+FROM lawyers
+ORDER BY customers_number DESC
+LIMIT 1
+UNION ALL
+SELECT name, customers_number
+FROM lawyers
+ORDER BY customers_number ASC
+LIMIT 1
+UNION ALL
+SELECT 'Average' AS name, CAST(AVG(customers_number) AS INTEGER) AS customers_number
+FROM lawyers;
+```
+
+#### Explanation of the Query:
+
+- The first `SELECT` statement finds the lawyer with the most clients by ordering in descending order and limiting to 1 result.
+- The second `SELECT` statement finds the lawyer with the fewest clients by ordering in ascending order and limiting to 1 result.
+- The third `SELECT` statement calculates the average number of clients for all lawyers and casts it as an integer. It uses 'Average' as a placeholder name for clarity in the output.
+
+This query will provide the required information in the specified format, helping the manager get insights into the distribution of clients among the lawyers.
+
+#### Output Sample:
+
+| name              | customers_number |
+| ----------------- | ---------------- |
+| Chelsey D. Sanders | 20               |
+| Marty M. Harrison | 5                |
+| Average           | 12               |
+
+---
+
+</details> 
+<!-- ```end -->
+
+Note: The SQL query is structured to work with most SQL database systems. However, minor adjustments might be necessary depending on the specific SQL dialect used (e.g., MySQL, PostgreSQL, etc.).
+
