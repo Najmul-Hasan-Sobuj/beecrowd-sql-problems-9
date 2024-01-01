@@ -2218,3 +2218,513 @@ This query will provide the required information in the specified format, helpin
 
 Note: The SQL query is structured to work with most SQL database systems. However, minor adjustments might be necessary depending on the specific SQL dialect used (e.g., MySQL, PostgreSQL, etc.).
 
+### beecrowd SQL | 2738 - Contest
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Marcos Lima, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+Mars Technology University has Open Positions for researchers. You are tasked with presenting a list of candidates, showing each candidate's name and final score (with two decimal places of precision). The list should be ordered by score, highest first. The score is calculated as a weighted average: 
+
+\[ \text{Avg} = \frac{(\text{math} \times 2) + (\text{specific} \times 3) + (\text{project\_plan} \times 5)}{10} \]
+
+#### Schema:
+
+1. **Table: `candidate`**
+
+   | Column | Type    |
+   | ------ | ------- |
+   | id (Primary Key) | integer |
+   | name   | varchar |
+
+2. **Table: `score`**
+
+   | Column | Type    |
+   | ------ | ------- |
+   | candidate_id (Foreign Key) | integer |
+   | math | numeric |
+   | specific | numeric |
+   | project_plan | numeric |
+
+#### Sample Data:
+
+- **candidate:**
+
+  | id | name                     |
+  | -- | ------------------------ |
+  | 1  | Michael P Cannon         |
+  | 2  | Barbra J Cable           |
+  | 3  | Ronald D Jones           |
+  | 4  | Timothy K Fitzsimmons    |
+  | 5  | Ivory B Morrison         |
+  | 6  | Sheila R Denis           |
+  | 7  | Edward C Durgan          |
+  | 8  | William K Spencer        |
+  | 9  | Donna D Pursley          |
+  | 10 | Ann C Davis              |
+
+- **score:**
+
+  | candidate_id | math | specific | project_plan |
+  | ------------ | ---- | -------- | ------------ |
+  | 1            | 76   | 58       | 21           |
+  | 2            | 4    | 5        | 22           |
+  | 3            | 15   | 59       | 12           |
+  | 4            | 41   | 42       | 99           |
+  | 5            | 22   | 90       | 9            |
+  | 6            | 82   | 77       | 15           |
+  | 7            | 82   | 99       | 56           |
+  | 8            | 11   | 4        | 22           |
+  | 9            | 16   | 29       | 94           |
+  | 10           | 1    | 7        | 59           |
+
+#### Task:
+
+Write an SQL query to present the candidate list with names and final scores, ordered by score (highest first). The final score should be displayed with two decimal places.
+
+#### SQL Query:
+
+```sql
+SELECT candidate.name, ROUND(((score.math * 2) + (score.specific * 3) + (score.project_plan * 5)) / 10, 2) AS avg
+FROM candidate
+JOIN score ON candidate.id = score.candidate_id
+ORDER BY avg DESC;
+```
+
+#### Explanation of the Query:
+
+- The `SELECT` statement calculates the weighted average for each candidate using the given formula and rounds it to two decimal places. It also selects the candidate's name.
+- The `FROM` and `JOIN` statements combine the `candidate` and `score` tables based on the candidate's ID.
+- The `ORDER BY` clause orders the results by the calculated average score in descending order.
+
+This query will provide the list of candidates with their final scores, helping in the evaluation process for the open researcher positions.
+
+#### Output Sample:
+
+| name                  | avg   |
+| --------------------- | ----- |
+| Edward C Durgan       | 74.10 |
+| Timothy K Fitzsimmons | 70.30 |
+| Donna D Pursley       | 58.90 |
+| Sheila R Denis        | 47.00 |
+| Michael P Cannon      | 43.10 |
+| Ivory B Morrison      | 35.90 |
+| Ann C Davis           | 31.80 |
+| Ronald D Jones        | 26.70 |
+| William K Spencer     | 14.40 |
+| Barbra J Cable        | 13.30 |
+
+---
+
+</details> 
+<!-- ```end -->
+
+Note: The SQL function `ROUND` used in the query might have different syntax or usage based on the SQL database system (e.g., MySQL, PostgreSQL, etc.). The query provided is a general example, and minor adjustments may be required depending on the specific SQL dialect used.
+
+### beecrowd SQL | 2739 - Payday
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Marcos Lima, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+The Central Bank of Financing needs assistance in recovering the collection dates for loan parcels after a server failure. The task is to select the names of clients and the day of the month on which each client must pay their parcel. The day of the month must be presented as an integer.
+
+#### Schema:
+
+**Table: `loan`**
+
+| Column | Type            |
+| ------ | --------------- |
+| id (Primary Key) | integer     |
+| name   | varchar         |
+| value  | numeric         |
+| payday | timestamp (ISO YMD) |
+
+#### Sample Data:
+
+**loan:**
+
+| id | name               | value   | payday     |
+| -- | ------------------ | ------- | ---------- |
+| 1  | Cristian Ghyprievy | 3000.50 | 2017-10-19 |
+| 2  | John Serial        | 10000   | 2017-10-10 |
+| 3  | Michael Seven      | 5000.40 | 2017-10-17 |
+| 4  | Joana Cabel        | 2000    | 2017-10-05 |
+| 5  | Miguel Santos      | 4050    | 2017-10-20 |
+
+#### Task:
+
+Write an SQL query to select the names of clients and the day of the month when each client must pay their parcel.
+
+#### SQL Query:
+
+```sql
+SELECT name, EXTRACT(DAY FROM payday) AS day
+FROM loan;
+```
+
+#### Explanation of the Query:
+
+- `SELECT name, EXTRACT(DAY FROM payday) AS day`: This line selects the `name` column from the `loan` table and extracts the day part of the `payday` timestamp. The day is aliased as "day" for clarity in the output.
+
+This query will provide the names of clients and the specific days of the month when they need to make their loan payments.
+
+#### Output Sample:
+
+| name               | day |
+| ------------------ | --- |
+| Cristian Ghyprievy | 19  |
+| John Serial        | 10  |
+| Michael Seven      | 17  |
+| Joana Cabel        | 5   |
+| Miguel Santos      | 20  |
+
+---
+
+</details> 
+<!-- ```end -->
+
+Note: The SQL function `EXTRACT` is used to retrieve specific parts of a date or time in SQL. The exact syntax may vary slightly depending on the SQL database system being used (e.g., MySQL, PostgreSQL, etc.). The query provided is a general representation, and slight adjustments might be necessary for specific SQL dialects.
+
+### beecrowd SQL | 2740 - League
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Marcos Lima, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+The International Underground Excavation League needs assistance in organizing their event results. The task is to select the top three teams with the prefix "Podium: " and the last two teams, indicating demotion, with the prefix "Demoted:".
+
+#### Schema:
+
+**Table: `league`**
+
+| Column    | Type    |
+| --------- | ------- |
+| position (Primary Key) | integer |
+| team      | varchar |
+
+#### Sample Data:
+
+**league:**
+
+| position | team                   |
+| -------- | ---------------------- |
+| 1        | The Quack Bats         |
+| 2        | The Responsible Hornets|
+| 3        | The Bawdy Dolphins     |
+| ...      | ...                    |
+| 14       | The Rough Robins       |
+| 15       | The Silver Crocs       |
+
+#### Task:
+
+Write an SQL query to select the first three teams as "Podium" and the last two teams as "Demoted".
+
+#### SQL Query:
+
+```sql
+(SELECT 'Podium: ' || team AS name FROM league ORDER BY position ASC LIMIT 3)
+UNION ALL
+(SELECT 'Demoted: ' || team AS name FROM league ORDER BY position DESC LIMIT 2);
+```
+
+#### Explanation of the Query:
+
+- The first `SELECT` statement selects the top three teams (by ascending order of position) and concatenates their names with "Podium: ".
+- The second `SELECT` statement selects the last two teams (by descending order of position) and concatenates their names with "Demoted: ".
+- The `UNION ALL` combines the results of these two queries.
+
+This query effectively identifies the top performers and those facing demotion, as per the league's structure.
+
+#### Output Sample:
+
+| name                         |
+| ---------------------------- |
+| Podium: The Quack Bats       |
+| Podium: The Responsible Hornets |
+| Podium: The Bawdy Dolphins   |
+| Demoted: The Rough Robins    |
+| Demoted: The Silver Crocs    |
+
+---
+
+</details> 
+<!-- ```end -->
+
+Note: The SQL syntax used for concatenation (`||`) might vary depending on the SQL database system (e.g., MySQL uses `CONCAT`). The provided query is a general example, and adjustments may be necessary depending on the specific SQL dialect used.
+
+### beecrowd SQL | 2741 - Students Grades
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Marcos Lima, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+At South Transylvania University, the semester has ended, and the list of approved students for Alchemy 104 needs to be published. The task is to show the word 'Approved: ' alongside the name and grade of students who have been approved (grade ≥7). The list should be sorted by grade, with higher grades first.
+
+#### Schema:
+
+**Table: `students`**
+
+| Column | Type    |
+| ------ | ------- |
+| id (Primary Key) | integer |
+| name   | varchar |
+| grade  | numeric |
+
+#### Sample Data:
+
+**students:**
+
+| id | name            | grade |
+| -- | --------------- | ----- |
+| 1  | Terry B. Padilla | 7.3   |
+| 2  | William S. Ray   | 0.6   |
+| 3  | Barbara A. Gongora | 5.2 |
+| 4  | Julie B. Manzer  | 6.7   |
+| 5  | Teresa J. Axtell | 4.6   |
+| 6  | Ben M. Dantzler  | 9.6   |
+
+#### Task:
+
+Write an SQL query to display the names and grades of students who have been approved, prefixed with 'Approved: '. The list should be sorted by grade in descending order.
+
+#### SQL Query:
+
+```sql
+SELECT 'Approved: ' || name AS name, grade
+FROM students
+WHERE grade >= 7
+ORDER BY grade DESC;
+```
+
+#### Explanation of the Query:
+
+- `SELECT 'Approved: ' || name AS name, grade`: This line selects the `name` column from the `students` table, prefixes it with 'Approved: ', and selects the `grade` column.
+- `FROM students`: Specifies that the data is being selected from the `students` table.
+- `WHERE grade >= 7`: Filters the results to include only students with a grade of 7 or higher.
+- `ORDER BY grade DESC`: Orders the results by the `grade` column in descending order.
+
+This query will display the names and grades of students who have been approved, in order of their grades.
+
+#### Output Sample:
+
+| name                        | grade |
+| --------------------------- | ----- |
+| Approved: Ben M. Dantzler   | 9.6   |
+| Approved: Terry B. Padilla  | 7.3   |
+
+---
+
+</details> 
+<!-- ```end -->
+
+Note: The SQL syntax for concatenation (`||`) may differ based on the SQL database system used. The provided query is a general example and may require adjustments depending on the specific SQL dialect.
+
+### beecrowd SQL | 2742 - Richard's Multiverse
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Marcos Lima, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+Richard, a scientist known for his multiverse theory, needs assistance in analyzing data about parallel universes. The task is to select every "Richard" from dimensions C875 and C774, along with their existence probability (the famous factor N), calculated to three decimal places. The N factor is computed by multiplying the omega value by 1.618. The data should be sorted by the least omega value.
+
+#### Schema:
+
+1. **Table: `dimensions`**
+
+   | Column | Type    |
+   | ------ | ------- |
+   | id (Primary Key) | numeric |
+   | name   | varchar |
+
+2. **Table: `life_registry`**
+
+   | Column | Type    |
+   | ------ | ------- |
+   | id (Primary Key) | numeric |
+   | name   | varchar |
+   | omega  | numeric |
+   | dimensions_id (Foreign Key) | numeric |
+
+#### Sample Data:
+
+- **dimensions:**
+
+  | id | name |
+  | -- | ---- |
+  | 1  | C774 |
+  | 2  | C784 |
+  | ...| ...  |
+  | 5  | C875 |
+
+- **life_registry:**
+
+  | id | name                | omega | dimensions_id |
+  | -- | ------------------- | ----- | ------------- |
+  | 1  | Richard Postman     | 5.6   | 2             |
+  | 2  | Simple Jelly        | 1.4   | 1             |
+  | 3  | Richard Gran Master | 2.5   | 1             |
+  | ...| ...                 | ...   | ...           |
+
+#### Task:
+
+Write an SQL query to select every "Richard" from dimensions C875 and C774, along with the N factor (omega × 1.618), sorted by the least omega value.
+
+#### SQL Query:
+
+```sql
+SELECT life_registry.name, ROUND(life_registry.omega * 1.618, 3) AS "The N Factor"
+FROM life_registry
+JOIN dimensions ON life_registry.dimensions_id = dimensions.id
+WHERE dimensions.name IN ('C875', 'C774') AND life_registry.name LIKE 'Richard%'
+ORDER BY life_registry.omega;
+```
+
+#### Explanation of the Query:
+
+- The `SELECT` statement chooses the `name` from `life_registry` and calculates the N factor as `omega * 1.618`, rounding to three decimal places.
+- The `FROM` and `JOIN` statements combine the `life_registry` and `dimensions` tables based on the `dimensions_id`.
+- The `WHERE` clause filters for dimensions C875 and C774 and names starting with 'Richard'.
+- The `ORDER BY` clause sorts the results by the omega value in ascending order.
+
+This query will display the required Richards from the specified dimensions alongside their calculated N factor.
+
+#### Output Sample:
+
+| name                | The N Factor |
+| ------------------- | ------------ |
+| Richard Gran Master | 4.045        |
+
+---
+
+</details> 
+<!-- ```end -->
+
+Note: The SQL function `ROUND` used in the query might have different syntax or usage based on the SQL database system (e.g., MySQL, PostgreSQL, etc.). The provided query is a general representation, and slight adjustments may be required for specific SQL dialects.
+
+### beecrowd SQL | 2743 - Number of Characters
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Marcos Lima, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+The Global Organization of Characters at People’s Names (GOCPN) conducted a census to determine the number of characters in people's names. The task is to show the number of characters for each name, sorted in decreasing order of the number of characters.
+
+#### Schema:
+
+**Table: `people`**
+
+| Column | Type    |
+| ------ | ------- |
+| id (Primary Key) | integer |
+| name   | varchar |
+
+#### Sample Data:
+
+**people:**
+
+| id | name      |
+| -- | --------- |
+| 1  | Karen     |
+| 2  | Manuel    |
+| 3  | Ygor      |
+| 4  | Valentine |
+| 5  | Jo        |
+
+#### Task:
+
+Write an SQL query to display the number of characters in each name, sorted by the decreasing number of characters.
+
+#### SQL Query:
+
+```sql
+SELECT name, LENGTH(name) AS length
+FROM people
+ORDER BY length DESC;
+```
+
+#### Explanation of the Query:
+
+- `SELECT name, LENGTH(name) AS length`: This line selects the `name` column from the `people` table and calculates the length of each name using the `LENGTH` function. The result is aliased as "length" for clarity.
+- `FROM people`: Specifies that the data is being selected from the `people` table.
+- `ORDER BY length DESC`: Orders the results by the calculated length in descending order.
+
+This query will display the names and their corresponding character count, sorted by the length of the names in descending order.
+
+#### Output Sample:
+
+| name       | length |
+| ---------- | ------ |
+| Valentine  | 9      |
+| Manuel     | 6      |
+| Karen      | 5      |
+| Ygor       | 4      |
+| Jo         | 2      |
+
+---
+
+</details> 
+<!-- ```end -->
+
+Note: The SQL function `LENGTH` is used to calculate the number of characters in a string. The exact syntax and name of this function might vary depending on the SQL database system (e.g., `LEN` in some systems). The provided query is a general representation, and minor adjustments may be necessary for specific SQL dialects.
+
