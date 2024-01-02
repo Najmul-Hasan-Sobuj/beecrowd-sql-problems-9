@@ -2728,3 +2728,307 @@ This query will display the names and their corresponding character count, sorte
 
 Note: The SQL function `LENGTH` is used to calculate the number of characters in a string. The exact syntax and name of this function might vary depending on the SQL database system (e.g., `LEN` in some systems). The provided query is a general representation, and minor adjustments may be necessary for specific SQL dialects.
 
+### beecrowd SQL | 2744 - Passwords
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Marcos Lima, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+As a consultant for a company, you've noticed that passwords are stored as plain text, which is a significant security risk. The task is to convert every password to the MD5 format and display the client id, the original password, and the new MD5 hash.
+
+#### Schema:
+
+**Table: `account`**
+
+| Column | Type    |
+| ------ | ------- |
+| id (Primary Key) | integer |
+| name   | varchar |
+| login  | varchar |
+| password | varchar |
+
+#### Sample Data:
+
+**account:**
+
+| id | name              | login      | password    |
+| -- | ----------------- | ---------- | ----------- |
+| 1  | Joyce P. Parry    | Promeraw   | noh1Oozei   |
+| 2  | Michael T. Gonzalez | Phers1942 | Iath3see9bi |
+| 3  | Heather W. Lawless | Hankicht  | diShono4    |
+| 4  | Otis C. Hitt      | Conalothe  | zooFohH7w   |
+| 5  | Roger N. Brownfield | Worseente | fah7ohNg   |
+
+#### Task:
+
+Write an SQL query to convert passwords into MD5 format and display the client id, the original password, and the new MD5 hash.
+
+#### SQL Query:
+
+```sql
+SELECT id, password, MD5(password) AS MD5
+FROM account;
+```
+
+#### Explanation of the Query:
+
+- `SELECT id, password, MD5(password) AS MD5`: This line selects the `id` and `password` from the `account` table and also generates an MD5 hash of the password. The MD5 hash is aliased as "MD5" for clarity.
+- `FROM account`: Specifies that the data is being selected from the `account` table.
+
+This query will display the client id, the original password, and its corresponding MD5 hash, thereby enhancing the security of password storage.
+
+#### Output Sample:
+
+| id | password    | MD5                                |
+| -- | ----------- | ---------------------------------- |
+| 1  | noh1Oozei   | b67ed42ced0e0a19ce7ed904bb94b607   |
+| 2  | Iath3see9bi | 66877b2da87fb09af3f5602f31c6d35c   |
+| 3  | diShono4    | d19c9be4c00c683a4688948b81eb2a1d   |
+| 4  | zooFohH7w   | 202b76ed4a556fdbf409505a8023695e   |
+| 5  | fah7ohNg    | 05b3dccaa70f228f1bedc7a285e50d9d   |
+
+---
+
+</details> 
+<!-- ```end -->
+
+Note: The MD5 function is commonly used in SQL for generating hash values from strings. However, it's important to mention that MD5 is no longer considered secure for cryptographic purposes in real-world applications, and more secure hashing algorithms like SHA-256 are recommended.
+
+### beecrowd SQL | 2745 - Taxes
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Marcos Lima, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+You are preparing for the International Personal Tax meeting with a proposal: individuals with an income higher than 3000 must pay a tax to the government, equal to 10% of their income. Your task is to show the name and the tax value of each person who earns more than 3000, with two decimal places of precision.
+
+#### Schema:
+
+**Table: `people`**
+
+| Column | Type    |
+| ------ | ------- |
+| id (Primary Key) | integer |
+| name   | varchar |
+| salary | numeric |
+
+#### Sample Data:
+
+**people:**
+
+| id | name              | salary |
+| -- | ----------------- | ------ |
+| 1  | James M. Tabarez  | 883    |
+| 2  | Rafael T. Hendon  | 4281   |
+| 3  | Linda J. Gardner  | 4437   |
+| 4  | Nicholas J. Conn  | 8011   |
+| 5  | Karol A. Morales  | 2508   |
+| 6  | Lolita S. Graves  | 8709   |
+
+#### Task:
+
+Write an SQL query to display the name and the tax value (10% of salary) for each person whose salary is more than 3000. The tax value should be shown with two decimal places.
+
+#### SQL Query:
+
+```sql
+SELECT name, ROUND(salary * 0.10, 2) AS tax
+FROM people
+WHERE salary > 3000;
+```
+
+#### Explanation of the Query:
+
+- `SELECT name, ROUND(salary * 0.10, 2) AS tax`: This line selects the `name` column from the `people` table and calculates the tax value as 10% of the salary, rounding it to two decimal places. The result is aliased as "tax" for clarity.
+- `FROM people`: Specifies that the data is being selected from the `people` table.
+- `WHERE salary > 3000`: Filters the results to include only individuals with a salary greater than 3000.
+
+This query will display the names and calculated tax values for individuals with high incomes.
+
+#### Output Sample:
+
+| name              | tax    |
+| ----------------- | ------ |
+| Rafael T. Hendon  | 428.10 |
+| Linda J. Gardner  | 443.70 |
+| Nicholas J. Conn  | 801.10 |
+| Lolita S. Graves  | 870.90 |
+
+---
+
+</details> 
+<!-- ```end -->
+
+Note: The SQL function `ROUND` is used to round numeric values to a specified number of decimal places. The exact syntax and behavior might vary slightly depending on the SQL database system being used (e.g., MySQL, PostgreSQL, etc.). The provided query is a general representation, and minor adjustments may be required for specific SQL dialects.
+
+### beecrowd SQL | 2746 - Viruses
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Marcos Lima, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+In recent virus research, it has been discovered that replacing the protein H1 (Hemagglutinin) with the X protein (Xenomorphina) has significant effects against viral diseases. Your task is to replace every occurrence of the string “H1” with 'X' in the virus database.
+
+#### Schema:
+
+**Table: `virus`**
+
+| Column | Type    |
+| ------ | ------- |
+| id (Primary Key) | integer |
+| name   | varchar |
+
+#### Sample Data:
+
+**virus:**
+
+| id | name  |
+| -- | ----- |
+| 1  | H1RT  |
+| 2  | H7H1  |
+| 3  | HUN8  |
+| 4  | XH1HX |
+| 5  | XXXX  |
+
+#### Task:
+
+Write an SQL query to replace every occurrence of “H1” with 'X' in the names of viruses.
+
+#### SQL Query:
+
+```sql
+SELECT REPLACE(name, 'H1', 'X') AS name
+FROM virus;
+```
+
+#### Explanation of the Query:
+
+- `SELECT REPLACE(name, 'H1', 'X') AS name`: This line uses the `REPLACE` function to change every occurrence of 'H1' to 'X' in the `name` column of the `virus` table. The result is aliased as "name" for clarity.
+- `FROM virus`: Specifies that the data is being selected from the `virus` table.
+
+This query will display the updated names of the viruses with the 'H1' protein replaced by 'X'.
+
+#### Output Sample:
+
+| name |
+| ---- |
+| XRT  |
+| H7X  |
+| HUN8 |
+| XXHX |
+| XXXX |
+
+---
+
+</details> 
+<!-- ```end -->
+
+Note: The SQL function `REPLACE` is used to replace occurrences of a specified string with another string. The syntax and behavior of this function are generally consistent across different SQL database systems (e.g., MySQL, PostgreSQL, etc.). The provided query is a standard representation, and it should work in most SQL environments.
+
+### beecrowd SQL | 2746 - Viruses
+
+<details>
+
+<summary>Click Here</summary>
+
+**Author:** Marcos Lima, BR Brazil
+
+**Time Limit:** 1 second
+
+**Memory Limit:** 200 MB
+
+---
+
+#### Problem Description:
+
+Viruses are evolving, and a recent discovery shows that replacing the H1 protein with Xenomorphina (X) has significant effects against viral diseases. You need to update the virus database to reflect this change by replacing every instance of "H1" with 'X'.
+
+#### Schema:
+
+**Table: `virus`**
+
+| Column | Type    |
+| ------ | ------- |
+| id (Primary Key) | integer |
+| name   | varchar |
+
+#### Sample Data:
+
+**virus:**
+
+| id | name  |
+| -- | ----- |
+| 1  | H1RT  |
+| 2  | H7H1  |
+| 3  | HUN8  |
+| 4  | XH1HX |
+| 5  | XXXX  |
+
+#### Task:
+
+Write an SQL query to replace every occurrence of “H1” with 'X' in the names of viruses.
+
+#### SQL Query:
+
+```sql
+SELECT REPLACE(name, 'H1', 'X') AS name
+FROM virus;
+```
+
+#### Explanation of the Query:
+
+- `SELECT REPLACE(name, 'H1', 'X') AS name`: This line uses the `REPLACE` function to change every occurrence of 'H1' to 'X' in the `name` column of the `virus` table. The result is aliased as "name" for clarity.
+- `FROM virus`: Specifies that the data is being selected from the `virus` table.
+
+This query will display the updated names of the viruses with the 'H1' protein replaced by 'X'.
+
+#### Output Sample:
+
+| name |
+| ---- |
+| XRT  |
+| H7X  |
+| HUN8 |
+| XXHX |
+| XXXX |
+
+---
+
+</details> 
+<!-- ```end -->
+
+Note: The SQL function `REPLACE` is used to replace occurrences of a specified string with another string. The syntax and behavior of this function are generally consistent across different SQL database systems (e.g., MySQL, PostgreSQL, etc.). The provided query is a standard representation, and it should work in most SQL environments.
+
+<!-- 2989 have some issue -->
+<!-- 2990 have some issue -->
+<!-- 2991 have some issue -->
